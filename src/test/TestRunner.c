@@ -55,6 +55,7 @@ Suite *create_suite_Constraints(void);
 Suite *create_suite_CVTerms(void);
 Suite *create_suite_SBO(void);
 Suite *create_suite_Uncert(void);
+Suite* create_suite_Import(void);
 
 //Suite *create_suite_FlatteningFailures(void);
 /**
@@ -95,7 +96,7 @@ void
 setTestDataDirectory (void)
 {
   char *srcdir = getenv("srcdir");
-  int  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
+  size_t  length  = (srcdir == NULL) ? 0 : strlen(srcdir);
 
 
   /**
@@ -132,17 +133,19 @@ main (int argc, char* argv[])
   //SRunner* runner = srunner_create(create_suite_CVTerms());
   //SRunner* runner = srunner_create(create_suite_SBO());
   //SRunner* runner = srunner_create(create_suite_Uncert());
+  //SRunner* runner = srunner_create(create_suite_Import());
 
+  srunner_add_suite(runner, create_suite_Import());
   srunner_add_suite( runner, create_suite_Errors() );
   srunner_add_suite( runner, create_suite_Basic() );
-  srunner_add_suite( runner, create_suite_Hierarchy() );
-  srunner_add_suite( runner, create_suite_Flattening() );
+  srunner_add_suite( runner, create_suite_SBO());
   srunner_add_suite( runner, create_suite_Distrib() );
   srunner_add_suite( runner, create_suite_FBC() );
   srunner_add_suite( runner, create_suite_Constraints() );
   srunner_add_suite( runner, create_suite_CVTerms() );
-  srunner_add_suite( runner, create_suite_SBO() );
   srunner_add_suite( runner, create_suite_Uncert() );
+  srunner_add_suite( runner, create_suite_Hierarchy());
+  srunner_add_suite( runner, create_suite_Flattening());
 
 
 #ifdef TRACE_MEMORY
